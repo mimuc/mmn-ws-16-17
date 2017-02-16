@@ -1,22 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>JQ AJAX</title>
+  <meta charset="UTF-8">
+  <title>JQ AJAX</title>
 </head>
 <body>
 <div id="output"></div>
 <script src="https://code.jquery.com/jquery.min.js"></script>
 <script>
-    var output = $('#output');
-    $.get('thedoors.json', function (data) {
-        // do something with data.
-    });
+  var output = $('#output');
 
+  // For LINUX Users:
+  $.ajaxSetup({
+    beforeSend: function(xhr) {
+      if (xhr.overrideMimeType) {
+        xhr.overrideMimeType("application/json");
+      }
+    }
+  });
+
+  $.get('thedoors.json', function(data) {
     output.append($('<h1>').html(data.name));
-    $.each(data.members, function () {
-        output.append($('<li>').html(this));
+    $.each(data.members, function() {
+      output.append($('<li>').html(this));
     });
+  });
+
+
 </script>
 </body>
 </html>
